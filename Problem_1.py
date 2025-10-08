@@ -14,7 +14,7 @@ Solution:
 1. Assume  arr1 = forwardRouteList (len M), arr2 = returnRouteList  (len N).
 Assume WLOG that M > N. For every route in forwardRouteList, search for the route in returnRouteList that yields the minimal +ve difference in distance, where difference in distance = target distance - forward dist - return distance. For the search involving the optimal route in returnRouteList, we use binary search to find the infimum of the target in the search array.
 
-Time: O(M log N), Space: O(1)
+Time: O(M log M + N log N + M log N), Space: O(1)
 '''
 
 def binary_search_infimum(arr, target):
@@ -39,6 +39,8 @@ def optimize_air_routes(arr1, arr2, target):
     if not arr1 or not arr2 or not target:
         return []
 
+    arr1.sort(key=lambda x: x[1])
+    arr2.sort(key=lambda x: x[1])
     M = len(arr1)
     N = len(arr2)
 
@@ -57,6 +59,8 @@ def optimize_air_routes(arr1, arr2, target):
                 dmin = fwd_dist + ret_dist
 
     return pair
+
+
 
 def run_optimize_air_routes():
     tests = [([[1,2000], [2,3000], [3,4000]], [[1,5000], [2,3000]], 5000,
